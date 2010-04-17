@@ -1,5 +1,5 @@
---- relayd/relay.c.orig	2007-12-09 05:36:36.000000000 +0900
-+++ relayd/relay.c	2008-01-14 10:26:05.345356528 +0900
+--- relayd/relay.c.orig	2010-03-18 14:26:05.000000000 -0700
++++ relayd/relay.c	2010-03-18 15:43:31.000000000 -0700
 @@ -16,7 +16,7 @@
   * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
   */
@@ -9,7 +9,7 @@
  #include <sys/queue.h>
  #include <sys/time.h>
  #include <sys/stat.h>
-@@ -675,6 +675,7 @@
+@@ -684,6 +684,7 @@
  		    &val, sizeof(val)) == -1)
  			goto bad;
  	}
@@ -17,7 +17,7 @@
  	if (proto->tcpflags & (TCPFLAG_SACK|TCPFLAG_NSACK)) {
  		if (proto->tcpflags & TCPFLAG_NSACK)
  			val = 0;
-@@ -684,6 +685,7 @@
+@@ -693,6 +694,7 @@
  		    &val, sizeof(val)) == -1)
  			goto bad;
  	}
@@ -25,16 +25,17 @@
  
  	return (s);
  
-@@ -1000,7 +1002,7 @@
+@@ -1027,8 +1029,7 @@
  		}
  	}
  	if (strstr(val, "$TIMEOUT") != NULL) {
--		snprintf(ibuf, sizeof(ibuf), "%lu", rlay->conf.timeout.tv_sec);
-+		snprintf(ibuf, sizeof(ibuf), "%lu", (unsigned long)rlay->conf.timeout.tv_sec);
+-		snprintf(ibuf, sizeof(ibuf), "%lu",
+-		    rlay->rl_conf.timeout.tv_sec);
++		snprintf(ibuf, sizeof(ibuf), "%lu", (unsigned long)rlay->rl_conf.timeout.tv_sec);
  		if (expand_string(buf, len, "$TIMEOUT", ibuf) != 0)
  			return (NULL);
  	}
-@@ -1565,7 +1567,7 @@
+@@ -1645,7 +1646,7 @@
  	switch (type) {
  	case DIGEST_SHA1:
  	case DIGEST_MD5:
@@ -43,16 +44,16 @@
  			relay_close_http(con, 500,
  			    "failed to allocate digest", 0);
  			goto fail;
-@@ -2469,7 +2471,7 @@
+@@ -2668,7 +2669,7 @@
  		goto err;
  
  	/* Set session context to the local relay name */
--	if (!SSL_CTX_set_session_id_context(ctx, rlay->conf.name,
+-	if (!SSL_CTX_set_session_id_context(ctx, rlay->rl_conf.name,
 +	if (!SSL_CTX_set_session_id_context(ctx, (unsigned char*)rlay->conf.name,
- 	    strlen(rlay->conf.name)))
+ 	    strlen(rlay->rl_conf.name)))
  		goto err;
  
-@@ -2849,7 +2851,7 @@
+@@ -3130,7 +3131,7 @@
  	if (fstat(fd, &st) != 0)
  		goto fail;
  	size = st.st_size;
@@ -61,7 +62,7 @@
  		goto fail;
  	if (read(fd, buf, size) != size)
  		goto fail;
-@@ -2857,7 +2859,7 @@
+@@ -3138,7 +3139,7 @@
  	close(fd);
  
  	*len = size + 1;

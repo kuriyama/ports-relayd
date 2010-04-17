@@ -1,9 +1,9 @@
---- relayd/relayd.conf.5.orig	2007-12-12 23:55:12.000000000 +0900
-+++ relayd/relayd.conf.5	2008-01-14 08:49:46.404074048 +0900
-@@ -101,20 +101,7 @@
+--- relayd/relayd.conf.5.orig	2010-03-18 14:26:05.000000000 -0700
++++ relayd/relayd.conf.5	2010-03-18 15:53:20.000000000 -0700
+@@ -111,21 +111,9 @@
+ .Sh GLOBAL CONFIGURATION
  Here are the settings that can be set globally:
- .Pp
- .Bl -tag -width Ds -compact
+ .Bl -tag -width Ds
 -.It Ic demote Ar group
 -Enable the global
 -.Xr carp 4
@@ -15,14 +15,22 @@
 -.Ic group
 -keyword in
 -.Xr ifconfig 8 .
--.Pp
--.It Xo
--.Ic interval Ar number
-+.It Ic interval Ar number
- .Xc
+ .It Ic interval Ar number
  Set the interval in seconds at which the hosts will be checked.
  The default interval is 10 seconds.
-@@ -894,7 +881,7 @@
+-.It Xo
+ .Ic log
+ .Pq Ic updates Ns \&| Ns Ic all
+ .Xc
+@@ -368,7 +356,6 @@
+ .Ic group
+ keyword in
+ .Xr ifconfig 8 .
+-.It Ic interval Ar number
+ Override the global interval and specify one for this table.
+ It must be a multiple of the global interval.
+ .It Ic timeout Ar number
+@@ -1103,7 +1090,7 @@
  .El
  .Sh FILES
  .Bl -tag -width "/etc/ssl/private/address.keyXX" -compact

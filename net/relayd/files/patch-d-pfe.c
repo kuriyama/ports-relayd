@@ -1,10 +1,20 @@
---- relayd/pfe.c.orig	2008-01-14 10:06:37.013495830 +0900
-+++ relayd/pfe.c	2008-01-14 10:06:47.508856711 +0900
-@@ -17,6 +17,7 @@
-  */
+--- relayd/pfe.c.orig	2010-03-18 17:48:04.000000000 -0700
++++ relayd/pfe.c	2010-03-18 18:06:49.000000000 -0700
+@@ -24,7 +24,7 @@
+ #include <net/if.h>
  
- #include <sys/param.h>
-+#include <sys/queue.h>
- #include <sys/stat.h>
- #include <sys/socket.h>
- #include <sys/un.h>
+ #include <errno.h>
+-#include <event.h>
++#include <sys/event.h>
+ #include <fcntl.h>
+ #include <stdlib.h>
+ #include <string.h>
+@@ -71,7 +71,7 @@
+ {
+ 	pid_t		 pid;
+ 	struct passwd	*pw;
+-	struct event	 ev_sigint;
++	struct kevent	 ev_sigint;
+ 	struct event	 ev_sigterm;
+ 	int		 i;
+ 	size_t		 size;

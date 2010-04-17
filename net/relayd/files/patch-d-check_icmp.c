@@ -1,11 +1,10 @@
---- relayd/check_icmp.c.orig	2008-01-14 10:10:32.881133017 +0900
-+++ relayd/check_icmp.c	2008-01-14 10:10:45.169385174 +0900
-@@ -16,7 +16,7 @@
-  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+--- relayd/check_icmp.c.orig	2010-03-18 14:26:02.000000000 -0700
++++ relayd/check_icmp.c	2010-03-18 15:09:03.000000000 -0700
+@@ -17,7 +17,6 @@
   */
  
+ #include <sys/param.h>
 -#include <sys/types.h>
-+#include <sys/param.h>
  #include <sys/queue.h>
  #include <sys/socket.h>
- 
+ #include <sys/sysctl.h>

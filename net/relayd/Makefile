@@ -5,13 +5,14 @@
 # $FreeBSD: ports/net/relayd/Makefile,v 1.5 2009/01/06 17:59:12 pav Exp $
 
 PORTNAME=	relayd
-PORTVERSION=	4.2.20071221
 PORTREVISION=	1
-CATEGORIES=	net
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	kuriyama
 
-MAINTAINER=	kuriyama@FreeBSD.org
+### added by jgh
+PORTVERSION=	4.7.20090813
+CATEGORIES=	net
+DISTFILES=	${PORTNAME}-${PORTVERSION}.tar.gz
+###
+
 COMMENT=	OpenBSD Relay Daemon
 
 LIB_DEPENDS=	event-1.4:${PORTSDIR}/devel/libevent

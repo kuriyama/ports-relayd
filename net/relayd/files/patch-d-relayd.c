@@ -1,6 +1,6 @@
---- relayd/relayd.c.orig	2008-01-14 10:00:21.487354557 +0900
-+++ relayd/relayd.c	2008-01-14 16:44:45.705572691 +0900
-@@ -16,7 +16,7 @@
+--- relayd/relayd.c.orig	2010-03-18 14:26:05.000000000 -0700
++++ relayd/relayd.c	2010-03-18 17:29:19.000000000 -0700
+@@ -17,7 +17,7 @@
   * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
   */
  
@@ -9,7 +9,7 @@
  #include <sys/queue.h>
  #include <sys/socket.h>
  #include <sys/wait.h>
-@@ -36,7 +36,7 @@
+@@ -37,7 +37,7 @@
  #include <unistd.h>
  #include <ctype.h>
  #include <pwd.h>
@@ -18,7 +18,7 @@
  #include <md5.h>
  
  #include <openssl/ssl.h>
-@@ -943,7 +943,7 @@
+@@ -1055,7 +1055,7 @@
  {
  	switch (type) {
  	case DIGEST_SHA1:
@@ -27,3 +27,15 @@
  		break;
  	case DIGEST_MD5:
  		return (MD5Data(data, len, buf));
+@@ -1293,9 +1293,11 @@
+ 	    bnd->bnd_proto == IPPROTO_TCP ? SOCK_STREAM : SOCK_DGRAM,
+ 	    bnd->bnd_proto)) == -1)
+ 		goto fail;
++#ifndef __FreeBSD__
+ 	if (setsockopt(s, SOL_SOCKET, SO_BINDANY,
+ 	    &v, sizeof(v)) == -1)
+ 		goto fail;
++#endif
+ 	if (bind(s, (struct sockaddr *)&bnd->bnd_ss,
+ 	    bnd->bnd_ss.ss_len) == -1)
+ 		goto fail;
