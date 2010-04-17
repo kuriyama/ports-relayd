@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# $FreeBSD: ports/net/relayd/files/relayd.in,v 1.3 2010/03/27 00:13:55 dougb Exp $
+#
+# PROVIDE: relayd
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+# Add the following lines to /etc/rc.conf to enable relayd:
+# relayd_enable="YES"
+# relayd_flags="<set as needed>"
+
+. /etc/rc.subr
+
+name=relayd
+rcvar=${name}_enable
+
+load_rc_config $name
+
+: ${relayd_enable="NO"}
+
+command="%%PREFIX%%/sbin/relayd"
+
+run_rc_command "$1"
